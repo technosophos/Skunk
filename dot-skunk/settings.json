@@ -1,0 +1,14 @@
+{
+  "author": "Matt Butcher",
+  "email": "technosophos@gmail.com",
+
+  "directories": ["src", "lib", "docs", "build"],
+
+  "templates": {
+    "tpl/README.tpl": "README.md",
+    "tpl/MIT.txt": "LICENSE.txt",
+    "tpl/gitignore.tpl": ".gitignore"
+  }
+
+}
+
