@@ -9,7 +9,7 @@ It's also a demonstation of how to write Cookoo programs in Go.
 ## Installation
 
 * Clone this repo
-* Build the program: "go build -o skunk"
+* Build the program: `go build -o skunk`
 * Copy `dot-skunk` to your home directory `cp -a dot-skunk ~/.skunk`
 
 Currently, you must clone the Cookoo repo directly until we get the
@@ -45,6 +45,17 @@ drwxr-xr-x   2 mattbutcher  staff    68B Mar  2 19:15 src
 ```
 
 Of course, all of this is customizable.
+
+Minimal help is available using the `-help` flag:
+
+```
+$ skunk -help
+Usage of ./skunk:
+  -confd="/Users/mattbutcher/.skunk": Set the directory with settings.json
+```
+
+Currently, you can use `-confd` to specify an alternative directory
+where Skunk's `settings.json` and template files live.
 
 ### Customizing
 
