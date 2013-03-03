@@ -3,39 +3,38 @@ package main
 import (
 	"cookoo"
 	//"fmt"
+	"flag"
 	"os"
-  "flag"
 )
 
 func main() {
-  flag.Parse()
-  project := flag.Arg(0)
-  homedir := os.ExpandEnv("${HOME}/.skunk")
-  projectdir := os.ExpandEnv("${PWD}/" + project)
+	flag.Parse()
+	project := flag.Arg(0)
+	homedir := os.ExpandEnv("${HOME}/.skunk")
+	projectdir := os.ExpandEnv("${PWD}/" + project)
 	registry, router, cxt := cookoo.Cookoo()
 
-  cxt.Add("homedir", homedir)
-  cxt.Add("basedir", projectdir)
-  cxt.Add("project", project)
-  cxt.Add("YEAR", "2013")
+	cxt.Add("homedir", homedir)
+	cxt.Add("basedir", projectdir)
+	cxt.Add("project", project)
+	cxt.Add("YEAR", "2013")
 
 	registry.
-  Route("scaffold", "Scaffold a new app.").
+		Route("scaffold", "Scaffold a new app.").
 		Does(Notice, "Testing").
 		Does(LoadSettings, "settings").
-			Using("file").WithDefault(homedir + "/settings.json").From("cxt:SettingsFile").
+		Using("file").WithDefault(homedir+"/settings.json").From("cxt:SettingsFile").
 		Does(MakeDirectories, "dirs").
-      Using("basedir").From("cxt:basedir").
-			Using("directories").From("cxt:directories").
-    Does(RenderTemplates, "template").
-      Using("tpldir").From("cxt:homedir").
-      Using("basedir").From("cxt:basedir").
-      Using("templates").From("cxt:templates").
-  Route("help", "Print help").
-    Does(Usage, "HelpText").
-	Done()
+		Using("basedir").From("cxt:basedir").
+		Using("directories").From("cxt:directories").
+		Does(RenderTemplates, "template").
+		Using("tpldir").From("cxt:homedir").
+		Using("basedir").From("cxt:basedir").
+		Using("templates").From("cxt:templates").
+		Route("help", "Print help").
+		Does(Usage, "HelpText").
+		Done()
 
 	//router.HandleRequest("help", cxt, false)
 	router.HandleRequest("scaffold", cxt, false)
 }
-
