@@ -32,7 +32,7 @@ func main() {
       Using("basedir").From("cxt:basedir").
       Using("templates").From("cxt:templates").
   Route("help", "Print help").
-    Does(Usage, "Testing").
+    Does(Usage, "HelpText").
 	Done()
 
 	//router.HandleRequest("help", cxt, false)
