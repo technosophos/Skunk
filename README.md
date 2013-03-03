@@ -12,6 +12,12 @@ It's also a demonstation of how to write Cookoo programs in Go.
 * Build the program: "go build -o skunk"
 * Copy `dot-skunk` to your home directory `cp -a dot-skunk ~/.skunk`
 
+Currently, you must clone the Cookoo repo directly until we get the
+source hierarchy worked out for it.
+
+* Clone https://github.com/Masterminds/Cookoo
+* Add it to your $GOPATH
+
 ## Usage
 
 Here's how you use it:

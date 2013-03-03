@@ -1,6 +1,7 @@
 package main
 
 import (
+	//"github.com/masterminds/cookoo/src/cookoo"
 	"cookoo"
 	//"fmt"
 	"flag"
