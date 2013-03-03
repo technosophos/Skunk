@@ -7,6 +7,7 @@ import (
 	"flag"
 	"os"
 	"path"
+	"time"
 )
 
 func main() {
@@ -21,7 +22,7 @@ func main() {
 	cxt.Add("homedir", homedir)
 	cxt.Add("basedir", projectdir)
 	cxt.Add("project", project)
-	cxt.Add("YEAR", "2013")
+	cxt.Add("now", time.Now())
 
 	registry.
 		Route("scaffold", "Scaffold a new app.").
