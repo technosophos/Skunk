@@ -1,6 +1,6 @@
 {
   "author": "Matt Butcher",
-  "email": "technosophos@gmail.com",
+  "email": "technosophos@example.com",
 
   "directories": ["src", "lib", "docs", "build"],
 
