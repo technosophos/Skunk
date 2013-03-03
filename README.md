@@ -62,7 +62,9 @@ where Skunk's `settings.json` and template files live.
 * Edit your `~/.skunk/settings.json` file to your tastes.
 * Create your own templates in `~/.skunk/tpl`
 
-The template format is [documented in the Go documentation](http://golang.org/pkg/text/template/#pkg-overview)
+The template format is [documented in the Go documentation](http://golang.org/pkg/text/template/#pkg-overview).
+Templates can range from simple to complex, including branching logic,
+constructing pipelines, and calling functions.
 
 Among other things, all of the values in `settings.json` are available
 in your templates. So you can add new data to your JSON an access it in
@@ -88,14 +90,14 @@ The default `settings.json` file might look something like this:
 
 Here's what these are for:
 
-- author: A name. This is conventional (not required), and is used as a
+- *author*: A name. This is conventional (not required), and is used as a
 template variable in, for example, `tpl/MIT.txt`.
-- email: This is conventional, and is used as a template variable in,
+- *email*: This is conventional, and is used as a template variable in,
 for example, `tpl/MIT.txt`.
-- directories: This is an array of directories to create. You can use
+- *directories*: This is an array of directories to create. You can use
 nested directories like this: 'foo/bar/baz' and skunk will create the
 entire hierarchy for you.
-- templates: This is a map of template files to destination files. Each
+- *templates*: This is a map of template files to destination files. Each
 template will be processed, and the results will be saved at the given
 directory (rooted from the project). So `tpl/README.tpl` will be run
 through the template engine, and then saved as `$PROJECTNAME/README.md`.
