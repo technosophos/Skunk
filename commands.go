@@ -30,6 +30,8 @@ func LoadSettings(cxt cookoo.Context, params *cookoo.Params) interface{} {
 		return result
 	}
 
+	fmt.Println("Reading settings from ", file)
+
 	stream, err := os.Open(file.(string))
 	if err != nil {
 		fmt.Println("Could not find settings file: ", err)
@@ -60,8 +62,11 @@ func MakeDirectories(cxt cookoo.Context, params *cookoo.Params) interface{} {
 
 	for _, dir := range directories {
 		dname := path.Join(basedir, dir.(string))
-		fmt.Println("Directory: ", dname)
-		os.MkdirAll(dname, 0755)
+		fmt.Println("Creating ", dname)
+		err := os.MkdirAll(dname, 0755)
+		if err != nil {
+			fmt.Println("Could not create directory: ", err)
+		}
 	}
 
 	return true
@@ -90,7 +95,7 @@ func rendercopy(tpl string, destination string, cxt cookoo.Context) bool {
 		fmt.Println(err)
 		return false
 	}
-	fmt.Println("Yay")
+	fmt.Printf("Rendering %s into %s...", tpl, destination)
 	out, err := os.Create(destination)
 	if err != nil {
 		fmt.Println("Could not create ", destination)
@@ -99,7 +104,9 @@ func rendercopy(tpl string, destination string, cxt cookoo.Context) bool {
 	err = t.Execute(out, cxt.AsMap())
 	if err != nil {
 		fmt.Println("Skipping template: ", err)
+		return false
 	}
+	fmt.Println("done")
 
 	return true
 }
