@@ -87,3 +87,8 @@ Say you wanted to add a template variable for `subtitle`. You can
 accomplish this by adding `"subtitle": "My Subtitle"` in the
 `settings.json` file, and it will thereafter be available in templates
 as `.subtitle`.
+
+## License
+
+This code is Open Source, and is licensed under the MIT license. See
+LICENSE.txt.
