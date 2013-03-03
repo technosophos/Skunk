@@ -2,11 +2,11 @@ package main
 
 import (
 	"cookoo"
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"os"
-	"text/template"
 	"path"
+	"text/template"
 )
 
 func Usage(cxt cookoo.Context, params *cookoo.Params) interface{} {
@@ -51,20 +51,20 @@ func LoadSettings(cxt cookoo.Context, params *cookoo.Params) interface{} {
 
 func MakeDirectories(cxt cookoo.Context, params *cookoo.Params) interface{} {
 	basedir := params.Get("basedir", ".").(string)
-  d, ok := cxt.Has("directories")
-  if !ok {
-    // Did nothing.
-    return false
-  }
+	d, ok := cxt.Has("directories")
+	if !ok {
+		// Did nothing.
+		return false
+	}
 	directories := d.([]interface{})
 
-  for _, dir := range directories {
+	for _, dir := range directories {
 		dname := path.Join(basedir, dir.(string))
-    fmt.Println("Directory: ", dname)
-    os.MkdirAll(dname, 0755)
-  }
+		fmt.Println("Directory: ", dname)
+		os.MkdirAll(dname, 0755)
+	}
 
-  return true
+	return true
 }
 
 func RenderTemplates(cxt cookoo.Context, params *cookoo.Params) interface{} {
@@ -77,7 +77,7 @@ func RenderTemplates(cxt cookoo.Context, params *cookoo.Params) interface{} {
 
 	for k, v := range templates {
 		tpath := path.Join(params.Get("tpldir", ".").(string), k)
-		opath := path.Join(params.Get("basedir",".").(string), v.(string))
+		opath := path.Join(params.Get("basedir", ".").(string), v.(string))
 		rendercopy(tpath, opath, cxt)
 	}
 
