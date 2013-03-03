@@ -1,4 +1,4 @@
-{{.PROJECT}}
+{{.project}}
 {{.author}} <{{.email}}>
 Copyright (C) {{.YEAR}} {{.author}}
 

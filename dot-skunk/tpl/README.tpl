@@ -1,4 +1,4 @@
-# {{.PROJECT}}
+# {{.project}}
 
 ## To Install
 
