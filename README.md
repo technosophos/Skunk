@@ -10,7 +10,7 @@ It's also a demonstation of how to write Cookoo programs in Go.
 
 * Clone this repo
 * Build the program: "go build -o skunk"
-* Copy `dot-skunk` to your home directory `cp dot-skunk ~/.skunk`
+* Copy `dot-skunk` to your home directory `cp -a dot-skunk ~/.skunk`
 
 ## Usage
 
