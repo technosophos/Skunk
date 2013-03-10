@@ -3,16 +3,19 @@ package main
 import (
 	//"github.com/masterminds/cookoo/src/cookoo"
 	"cookoo"
-	//"fmt"
+	"fmt"
 	"flag"
 	"os"
 	"path"
 	"time"
+	"strings"
 )
 
 func main() {
 	homedir := os.ExpandEnv("${HOME}/.skunk")
+	var sets templateSet
 	flag.StringVar(&homedir, "confd", homedir, "Set the directory with settings.json")
+	flag.Var(&sets, "type", "Project type (e.g. 'go', 'php'). Separate multiple values with ','")
 	flag.Parse()
 
 	project := flag.Arg(0)
@@ -41,4 +44,22 @@ func main() {
 
 	//router.HandleRequest("help", cxt, false)
 	router.HandleRequest("scaffold", cxt, false)
+}
+
+type templateSet []string
+
+func (t *templateSet) Set(arg string) error {
+	// Split the string
+	/*for _, str := range strings.Split(value, ",") {
+		// Clean up string
+		// append to the templateSet
+		*t = append(*t, str)
+	}*/
+	*t = append(*t, strings.Split(arg, ",")...)
+	return nil
+}
+
+func (t *templateSet) String() string {
+	//strings.Join(t, ",")
+	return fmt.Sprint(*t)
 }
