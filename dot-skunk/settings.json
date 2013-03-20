@@ -8,7 +8,20 @@
     "tpl/README.tpl": "README.md",
     "tpl/MIT.txt": "LICENSE.txt",
     "tpl/gitignore.tpl": ".gitignore"
-  }
+  },
+
+	"php": {
+		"directories": ["vendor"],
+		"templates": {
+			"tpl/php/composer.json.tpl": "composer.json"
+		}
+	},
+
+	"fabric": {
+		"templates": {
+			"tpl/fabric/fabfile.py.tpl": "fabfile.py"
+		}
+	}
 
 }
 
