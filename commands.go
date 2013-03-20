@@ -80,17 +80,43 @@ func MakeDirectories(cxt cookoo.Context, params *cookoo.Params) interface{} {
 // Merge project-specific settings into the main settings array.
 func MergeProjectTypes(cxt cookoo.Context, params *cookoo.Params) interface{} {
 	types, ok  := params.Has("projectTypes")
+	dirs, ok := params.Has("directories")
+	tpls, ok := params.Has("templates")
 	projectTypes := types.(*templateSet)
+	directories := dirs.([]interface{})
+	templates := tpls.(map[string]interface{})
 
 	// No merging goin' on here.
 	if !ok || projectTypes.Len() == 0 {
 		return false
 	}
 	for _, str := range projectTypes.Templates() {
-		fmt.Println(str)
+		fmt.Printf("Merging from '%s'.\n", str)
+		mergeFromContext(str, cxt, &directories, &templates)
 	}
 
+	// This is ugly: We have to add directories back into the context
+	// because it was not initially put in as a pointer.
+	cxt.Add("directories", directories)
+
 	return true
+}
+
+func mergeFromContext(name string, cxt cookoo.Context, directories *[]interface{}, templates *map[string]interface{}) {
+	if config, ok := cxt.Has(name); ok {
+		conf := config.(map[string]interface{})
+		if conf["directories"] != nil {
+			dirs := conf["directories"].([]interface{})
+			*directories = append(*directories, dirs...)
+		}
+
+		if conf["templates"] != nil {
+			tpls := conf["templates"].(map[string]interface{})
+			for k, v := range tpls {
+				(*templates)[k] = v
+			}
+		}
+	}
 }
 
 func RenderTemplates(cxt cookoo.Context, params *cookoo.Params) interface{} {
@@ -138,6 +164,7 @@ type templateSet struct {
 	templates []string
 }
 
+// Create a new set of templates.
 func newTemplateSet() *templateSet {
 	t := new(templateSet)
 	t.templates = make([]string, 5)

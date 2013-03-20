@@ -24,6 +24,8 @@ func main() {
 			From("cxt:SettingsFile").
 		Does(MergeProjectTypes, "types").
 			Using("projectTypes").From("cxt:templateSets").
+			Using("directories").From("cxt:directories").
+			Using("templates").From("cxt:templates").
 		Does(MakeDirectories, "dirs").
 			Using("basedir").From("cxt:basedir").
 			Using("directories").From("cxt:directories").
@@ -50,6 +52,7 @@ func main() {
 	cxt.Add("project", project)
 	cxt.Add("templateSets", &sets)
 	cxt.Add("now", time.Now())
+	cxt.Add("SettingsFile", path.Join(homedir, "settings.json"))
 
 	// No arg[0] is an error.
 	if flag.NArg() == 0 {
