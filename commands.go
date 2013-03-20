@@ -4,21 +4,26 @@ import (
 	"cookoo"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"os"
 	"path"
 	"text/template"
+	"flag"
 )
 
+// Print usage info.
 func Usage(cxt cookoo.Context, params *cookoo.Params) interface{} {
-	fmt.Println("Usage: skunk PROJECTNAME")
+	fmt.Fprintf(os.Stderr, "Usage: %s [-OPTIONS] PROJECTNAME\n", os.Args[0])
+	fmt.Fprintf(os.Stderr, "\nOPTIONS:\n")
+	flag.PrintDefaults()
+	fmt.Fprintf(os.Stderr,"\nEXAMPLES:\n")
+	fmt.Fprintf(os.Stderr,"skunk MyProject\t\t\t# Create MyProject, using defaults.\n")
+	fmt.Fprintf(os.Stderr,"skunk -condf=skunkd MyProject\t# Create MyProject using config files in ./skunkd/.\n")
+	fmt.Fprintf(os.Stderr,"skunk -type=go,git MyProject\t# Create MyProject and use the preferences for user-defined 'go' and 'git' projects.\n")
 	return true
 }
 
-func Notice(cxt cookoo.Context, params *cookoo.Params) interface{} {
-	fmt.Println("Got Here")
-	return true
-}
-
+// Load a settings file.
 func LoadSettings(cxt cookoo.Context, params *cookoo.Params) interface{} {
 	// Container for the results.
 	var result map[string]interface{}
@@ -72,6 +77,22 @@ func MakeDirectories(cxt cookoo.Context, params *cookoo.Params) interface{} {
 	return true
 }
 
+// Merge project-specific settings into the main settings array.
+func MergeProjectTypes(cxt cookoo.Context, params *cookoo.Params) interface{} {
+	types, ok  := params.Has("projectTypes")
+	projectTypes := types.(*templateSet)
+
+	// No merging goin' on here.
+	if !ok || projectTypes.Len() == 0 {
+		return false
+	}
+	for _, str := range projectTypes.Templates() {
+		fmt.Println(str)
+	}
+
+	return true
+}
+
 func RenderTemplates(cxt cookoo.Context, params *cookoo.Params) interface{} {
 	t, ok := params.Has("templates")
 	if !ok {
@@ -109,4 +130,40 @@ func rendercopy(tpl string, destination string, cxt cookoo.Context) bool {
 	fmt.Println("done")
 
 	return true
+}
+
+// Capture a set of templates that should be merged into the
+// main array of templates.
+type templateSet struct {
+	templates []string
+}
+
+func newTemplateSet() *templateSet {
+	t := new(templateSet)
+	t.templates = make([]string, 5)
+	return t
+}
+
+func (t *templateSet) Set(arg string) error {
+	// Split the string
+	for _, str := range strings.Split(arg, ",") {
+		// Clean up string
+		// append to the templateSet
+		t.templates = append(t.templates, strings.TrimSpace(str))
+	}
+	//*t = append(*t, strings.Split(arg, ",")...)
+	return nil
+}
+
+func (t *templateSet) String() string {
+	//strings.Join(t, ",")
+	return fmt.Sprint(t.templates)
+}
+
+func (t *templateSet) Len() int {
+	return len(t.templates)
+}
+
+func (t *templateSet) Templates() []string {
+	return t.templates
 }
