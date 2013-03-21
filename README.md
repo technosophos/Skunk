@@ -40,7 +40,7 @@ drwxr-xr-x   2 mattbutcher  staff    68B Mar  2 19:15 src
 
 Of course, all of this is customizable.
 
-Minimal help is available using the `-help` flag:
+Basic help is available using the `-help` flag:
 
 ```
 $ skunk -help
@@ -56,8 +56,14 @@ skunk -condf=skunkd MyProject	# Create MyProject using config files in ./skunkd/
 skunk -type=go,git MyProject	# Create MyProject and use the preferences for user-defined 'go' and 'git' projects.
 ```
 
-Currently, you can use `-confd` to specify an alternative directory
-where Skunk's `settings.json` and template files live.
+#### Options Explained
+
+- confd: The directory that holds your Skunk configuration files. By
+default, Skunk looks in `~/.skunkrc`. *A skunk directory MUST have a
+settings.json file*.
+- type: The type of project. This allows you to add additional
+directories and templates for specific kinds of projects. (See below.)
+
 
 ### Customizing
 
