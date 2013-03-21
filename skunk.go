@@ -1,8 +1,7 @@
 package main
 
 import (
-	//"github.com/masterminds/cookoo/src/cookoo"
-	"cookoo"
+	"github.com/Masterminds/Cookoo/src/cookoo"
 	"flag"
 	"os"
 	"path"

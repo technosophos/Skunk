@@ -12,12 +12,6 @@ It's also a demonstation of how to write Cookoo programs in Go.
 * Build the program: `go build -o skunk`
 * Copy `dot-skunk` to your home directory `cp -a dot-skunk ~/.skunk`
 
-Currently, you must clone the Cookoo repo directly until we get the
-source hierarchy worked out for it.
-
-* Clone https://github.com/Masterminds/Cookoo
-* Add it to your $GOPATH
-
 ## Usage
 
 Here's how you use it:
@@ -50,8 +44,16 @@ Minimal help is available using the `-help` flag:
 
 ```
 $ skunk -help
-Usage of ./skunk:
+Usage: skunk [-OPTIONS] PROJECTNAME
+
+OPTIONS:
   -confd="/Users/mattbutcher/.skunk": Set the directory with settings.json
+  -type=[]: Project type (e.g. 'go', 'php'). Separate multiple values with ','
+
+EXAMPLES:
+skunk MyProject			# Create MyProject, using defaults.
+skunk -condf=skunkd MyProject	# Create MyProject using config files in ./skunkd/.
+skunk -type=go,git MyProject	# Create MyProject and use the preferences for user-defined 'go' and 'git' projects.
 ```
 
 Currently, you can use `-confd` to specify an alternative directory
@@ -106,6 +108,69 @@ Say you wanted to add a template variable for `subtitle`. You can
 accomplish this by adding `"subtitle": "My Subtitle"` in the
 `settings.json` file, and it will thereafter be available in templates
 as `.subtitle`.
+
+### Types
+
+In addition to basic customizations, you can declare your own *type*. A
+type, in Skunk, reflects *what kind (type) of project* you are creating.
+
+In Skunk 1.0, creating types is trivially easy. You just add a type as
+an object in your `settings.json` file.
+
+Here's an example from the default `settings.json`:
+
+```javascript
+{
+  "author": "Matt Butcher",
+  "email": "technosophos@example.com",
+	"description": "",
+	"keywords": "",
+
+  "directories": ["src", "lib", "docs", "build"],
+
+  "templates": {
+    "tpl/README.tpl": "README.md",
+    "tpl/MIT.txt": "LICENSE.txt",
+    "tpl/gitignore.tpl": ".gitignore"
+  },
+
+
+	"php": {
+		"directories": ["vendor"],
+		"templates": {
+			"tpl/php/composer.json": "composer.json"
+		}
+	}
+}
+
+```
+
+See the `php` entry? That's a declaration of the type `php`. Now, to
+start a new PHP project we can invoke Skunk like this:
+
+```
+$ skunk -type php MyProject
+```
+
+And this will do the following:
+
+- It will start with the `directories` and `tempaltes` declared at the
+base of the `settings.json` file.
+- It will merge the `directories` and `templates` from the `php` section
+into those lists.
+- It will create `MyProject` along with all of the directories and
+templates in the final list.
+
+You can set multiple types for a new project:
+
+```
+$ skunk -type php,stackato,fabric MyProject
+```
+
+This will merge the `php`, `stackato`, and `fabric` settings all into
+the main settings. When it comes to overwriting, order is important. The
+*last type* has the highest precendence.
+
 
 ## License
 
