@@ -1,0 +1,16 @@
+{
+  "name": "{{.project}}",
+  "type": "library",
+  "description": "{{.description}}"
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [""],
+  "require" : {
+    "php" : ">=5.3.0"
+  },
+  "dependencies": {
+  },
+  "autoload": {
+    "psr-0": {"{{.project}}": "src/"},
+  }
+}

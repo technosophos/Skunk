@@ -1,6 +1,8 @@
 {
   "author": "Matt Butcher",
   "email": "technosophos@example.com",
+	"description": "",
+	"keywords": "",
 
   "directories": ["src", "lib", "docs", "build"],
 
@@ -10,16 +12,28 @@
     "tpl/gitignore.tpl": ".gitignore"
   },
 
+	"node": {
+		"templates": {
+			"tpl/node/package.json": "package.json"
+		}
+	},
+
 	"php": {
 		"directories": ["vendor"],
 		"templates": {
-			"tpl/php/composer.json.tpl": "composer.json"
+			"tpl/php/composer.json": "composer.json"
+		}
+	},
+
+	"stackato": {
+		"templates": {
+			"tpl/stackato/stackato.yml": "stackato.yml"
 		}
 	},
 
 	"fabric": {
 		"templates": {
-			"tpl/fabric/fabfile.py.tpl": "fabfile.py"
+			"tpl/fabric/fabfile.py": "fabfile.py"
 		}
 	}
 
