@@ -4,7 +4,7 @@
 	"description": "",
 	"keywords": "",
 
-  "directories": ["src", "lib", "docs", "build"],
+  "directories": [],
 
   "templates": {
     "tpl/README.tpl": "README.md",
@@ -13,12 +13,15 @@
   },
 
 	"node": {
+    "directories": ["src", "lib", "docs"],
 		"templates": {
 			"tpl/node/package.json": "package.json"
 		}
 	},
 
 	"php": {
+    "directories": ["src", "lib", "docs"],
+    "help": "Files for PHP and Composer.",
 		"directories": ["vendor"],
 		"templates": {
 			"tpl/php/composer.json": "composer.json"
@@ -32,10 +35,20 @@
 	},
 
 	"fabric": {
+    "help": "Creates a fabfile.py for your project",
 		"templates": {
 			"tpl/fabric/fabfile.py": "fabfile.py"
 		}
-	}
+	},
+
+  "go-workspace": {
+    "help": "Creates a Go workspace (not project)",
+    "directories": ["bin", "pkg", "src"],
+    "templates": {
+      "tpl/go/setenv.sh": "setenv.sh"
+    }
+
+  }
 
 }
 
