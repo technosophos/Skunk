@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Masterminds/Cookoo/src/cookoo"
+	"github.com/Masterminds/Cookoo"
 	"encoding/json"
 	"fmt"
 	"strings"
