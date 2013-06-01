@@ -8,9 +8,12 @@ It's also a demonstation of how to write Cookoo programs in Go.
 
 ## Installation
 
-* Clone this repo
-* Build the program: `go build -o skunk`
-* Copy `dot-skunk` to your home directory `cp -a dot-skunk ~/.skunk`
+```
+$ cd $GOPATH
+$ go get github.com/technosophos/skunk
+$ cp -a src/github.com/technosophos/skunk/dot-skunk ~/.skunk
+$ bin/skunk
+```
 
 ## Usage
 
